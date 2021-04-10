@@ -17,7 +17,7 @@ let questions =
         },
         {
             type: 'input',
-            name: 'ID',
+            name: 'id',
             message: "Employee ID:",
         },
         {
@@ -29,7 +29,7 @@ let questions =
             type: 'list',
             name: 'role',
             message: "Employee Job Title:",
-            choices: ["Manager", "Engineer", "Inter"]
+            choices: ["Manager", "Engineer", "Intern"]
         },
     ]
 
@@ -37,7 +37,7 @@ const managerQuestions =
     [
         {
             type: 'input',
-            name: 'office',
+            name: 'officeNumber',
             message: 'Office Number:'
         }
     ]
@@ -76,7 +76,9 @@ async function questionsFuntion() {
     let finalResults = await { ...initalResults, ...positionResults };
     let employee = await makeEmployee(finalResults);
     employees.push(employee);
+    console.log(employees)
     let addEmployee = await inquirer.prompt(addMore);
+    more(addEmployee.confirm);
 }
 
 function makeEmployee(employee) {
@@ -90,7 +92,7 @@ function makeEmployee(employee) {
             return new Manager(name, id, email, employee.officeNumber);
             break;
         case 'Engineer':
-            return new Engineer(name, id, email, employee.gitHub);
+            return new Engineer(name, id, email, employee.github);
             break;
         case 'Intern':
             return new Intern(name, id, email, employee.school);
@@ -114,7 +116,7 @@ function nextPrompt(employee) {
 
 //this is not working. if yes, does not start over
 function more(confirm) {
-    if (confirm = Yes) {
+    if (confirm) {
         return questionsFuntion();
     }
 }
