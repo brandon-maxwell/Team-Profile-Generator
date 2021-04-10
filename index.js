@@ -6,14 +6,14 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
 
-// const employees = [];
+const employees = [];
 
 let questions =
     [
         {
             type: 'input',
             name: 'name',
-            message: "Team Manager's Name:",
+            message: "Team Member's name:",
         },
         {
             type: 'input',
@@ -23,122 +23,104 @@ let questions =
         {
             type: 'input',
             name: 'email',
-            message: "Email Address:",
-        },
-        {
-            type: 'input',
-            name: 'office',
-            message: "Office Number:",
+            message: "Employee Email Address:",
         },
         {
             type: 'list',
-            name: 'add',
-            message: "Add an Engineer, Intern, or Team Complete?",
-            choices: ["Add Engineer", "Add Intern", "I'm done adding"]
+            name: 'role',
+            message: "Employee Job Title:",
+            choices: ["Manager", "Engineer", "Inter"]
         },
+    ]
+
+const managerQuestions =
+    [
+        {
+            type: 'input',
+            name: 'office',
+            message: 'Office Number:'
+        }
     ]
 
 const engineerQuestions =
     [
         {
             type: 'input',
-            name: 'name',
-            message: "Employee Name:",
-        },
-        {
-            type: 'input',
-            name: 'ID',
-            message: "Employee ID:",
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: "Employee's Email address:"
-        },
-        {
-            type: 'input',
             name: 'github',
             message: "Employee's GitHub username:",
-        },
-        {
-            type: 'list',
-            name: 'add',
-            message: "Add an Engineer, Intern, or Team Complete?",
-            choices: ["Add Engineer", "Add Intern", "I'm done adding"]
-        },
+        }
     ]
 
 const internQuestions =
     [
         {
             type: 'input',
-            name: 'name',
-            message: "Intern Name:",
-        },
-        {
-            type: 'input',
-            name: 'ID',
-            message: "Employee ID:",
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: "Intern's Email address:"
-        },
-        {
-            type: 'input',
             name: 'school',
-            message: "What school did the Intern attend/is attenting?",
-        },
-        {
-            type: 'list',
-            name: 'add',
-            message: "Add an Engineer, Intern, or Team Complete?",
-            choices: ["Add Engineer", "Add Intern", "I'm done adding"]
-        },
+            message: "What school did the Intern attend?",
+        }
     ]
 
-// inquirer.prompt(questions).then((response) => {
-//     console.log(response)
-//     inquirer
+const addMore =
+    [
+        {
+            type: 'confirm',
+            message: "Add more team members?",
+            name: 'confirm',
+        }
+    ]
 
-//     // inquirer.prompt(engineerQuestions).then((response) {
+async function questionsFuntion() {
+    let initalResults = await inquirer.prompt(questions);
+    let positionQuestions = await nextPrompt(initalResults);
+    let positionResults = await inquirer.prompt(positionQuestions);
+    let finalResults = await { ...initalResults, ...positionResults };
+    let employee = await makeEmployee(finalResults);
+    employees.push(employee);
+    let addEmployee = await inquirer.prompt(addMore);
+}
 
-//     // }
-// })
+function makeEmployee(employee) {
+    let name = employee.name;
+    let id = employee.id;
+    let email = employee.email;
+    let role = employee.role;
 
-function nextPrompt(answer) {
-    switch (answer) {
-        case 'Add Engineer': return engineerQuestions; 
-        case value:
-            
+    switch (role) {
+        case 'Manager':
+            return new Manager(name, id, email, employee.officeNumber);
             break;
-    
-        default:
+        case 'Engineer':
+            return new Engineer(name, id, email, employee.gitHub);
             break;
+        case 'Intern':
+            return new Intern(name, id, email, employee.school);
+            break;
+    }
+};
+
+function nextPrompt(employee) {
+    switch (employee.role) {
+        case 'Manager':
+            return managerQuestions;
+            break;
+        case 'Engineer':
+            return engineerQuestions;
+            break;
+        case 'Intern':
+            return internQuestions;
+            break;
+    }
+};
+
+//this is not working. if yes, does not start over
+function more(confirm) {
+    if (confirm = Yes) {
+        return questionsFuntion();
     }
 }
 
+questionsFuntion();
 
-async function questionsFuntion(){
-    let response = await inquirer.prompt(questions)
- 
-  let roleQuestions =  nextPrompt(response.add)
-   
-    let response2 = await inquirer.prompt(roleQuestions);
-    
-    
-}
-
-questionsFuntion(); 
-
-
-// Reviewed w/Tutor - may make more sense to have 1 main set of quetions, 
-// then add the subset of selected employee time
-// will then want to push results to array and loop through quesiton again
-
-
-// employee.
 
 //need to figure out where to add html
 // <!DOCTYPE html>
