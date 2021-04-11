@@ -5,7 +5,6 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-
 const employees = [];
 
 let questions =
@@ -114,28 +113,59 @@ function nextPrompt(employee) {
     }
 };
 
-//this is not working. if yes, does not start over
 function more(confirm) {
     if (confirm) {
         return questionsFuntion();
+    } else {
+        generateHTML();
     }
 }
 
+function generateHTML() {
+    let html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Team Profile</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div class="containter-fluid">
+      <div class ="row">
+        <div class="col-12 jumbotron mb-3 heading">
+            <h1 class="text-center">My Team</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="card-container col-12 d-flex justify content-center">
+            <div class="card employee">
+              <div class="employee-header">
+                <h2>${employees.name}</h2>
+                <h3>${employees.title}</h3>
+              </div>
+              <div class="employee-info">
+                <ul class="list-group">
+                  <li class="list-group-item">ID: ${employees.id}</li>
+                  <li class="list-group-item"> Email: <a href="mailto:${employees.email}">${employees.email}</a>
+                  </li>
+                  <li class="list-group-item">${employees.officeNumber || employees.github || employees.school}</li>
+                </ul>
+              </div>  
+            </div>
+        </div>
+      </div>
+    </div>
+    </body>
+    </html>`
+    
+
+    fs.writeFile("./dist/team-profile.html", html, (err) =>
+        err ? console.error(err) : console.log('Team Profile successfully created!'))
+}
+
 questionsFuntion();
-
-
-//need to figure out where to add html
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//   <title>Team Profile</title>
-//   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-//   <link rel="stylesheet" href="style.css">
-// </head>
-// <body>
-
-// </body>
-// </html>
