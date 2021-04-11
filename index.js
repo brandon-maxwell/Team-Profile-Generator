@@ -1,9 +1,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const htmlTemplate = require("./src/html-template")
 
 const employees = [];
 
@@ -68,7 +68,7 @@ const addMore =
         }
     ]
 
-async function questionsFuntion() {
+async function questionsFunction() {
     let initalResults = await inquirer.prompt(questions);
     let positionQuestions = await nextPrompt(initalResults);
     let positionResults = await inquirer.prompt(positionQuestions);
@@ -115,96 +115,15 @@ function nextPrompt(employee) {
 
 function more(confirm) {
     if (confirm) {
-        return questionsFuntion();
+        return questionsFunction();
     } else {
         generateHTML();
     }
 }
 
-let employeeCard = function createCard (employees) {
-    if (role == "Manager") {
-        return`<div class="card employee">
-        <div class="employee-header">
-          <h2>${employees.name}</h2>
-          <h3>${employees.role}</h3>
-        </div>
-        <div class="employee-info">
-          <ul class="list-group">
-            <li class="list-group-item">ID: ${employees.id}</li>
-            <li class="list-group-item">Email: <a href="mailto:${employees.email}">${employees.email}</a>
-            </li>
-            <li class="list-group-item">Office Number: ${employees.officeNumber}</li>
-          </ul>
-        </div>  
-        </div>`
-    }
-    else if (role == "Engineer") {
-        return`<div class="card employee">
-        <div class="employee-header">
-          <h2>${name}</h2>
-          <h3>${role}</h3>
-        </div>
-        <div class="employee-info">
-          <ul class="list-group">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a>
-            </li>
-            <li class="list-group-item">GitHub Profile: ${github}</li>
-          </ul>
-        </div>  
-        </div>`
-    }
-    else if (role == "Intern") {
-        return`<div class="card employee">
-        <div class="employee-header">
-          <h2>${name}</h2>
-          <h3>${role}</h3>
-        </div>
-        <div class="employee-info">
-          <ul class="list-group">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a>
-            </li>
-            <li class="list-group-item">School: ${school}</li>
-          </ul>
-        </div>  
-        </div>`
-    }
-
-}
-
 function generateHTML() {
-    let html = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Team Profile</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-    <div class="containter-fluid">
-      <div class ="row">
-        <div class="col-12 jumbotron mb-3 heading">
-            <h1 class="text-center">My Team</h1>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="card-container col-12 d-flex justify content-center">
-        ${employeeCard}
-        </div>
-      </div>
-    </div>
-    </body>
-    </html>`
-    
-
-    fs.writeFile("./dist/team-profile.html", html, (err) =>
-        err ? console.error(err) : console.log('Team Profile successfully created!'))
+    fs.writeFile("./dist/team-profile.html", htmlTemplate(employees), (err) => 
+    err ? console.error(err) : console.log('Team Profile successfully created!'))
 }
 
-questionsFuntion();
+questionsFunction();
