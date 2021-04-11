@@ -121,6 +121,58 @@ function more(confirm) {
     }
 }
 
+let employeeCard = function createCard (employees) {
+    if (role == "Manager") {
+        return`<div class="card employee">
+        <div class="employee-header">
+          <h2>${employees.name}</h2>
+          <h3>${employees.role}</h3>
+        </div>
+        <div class="employee-info">
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${employees.id}</li>
+            <li class="list-group-item">Email: <a href="mailto:${employees.email}">${employees.email}</a>
+            </li>
+            <li class="list-group-item">Office Number: ${employees.officeNumber}</li>
+          </ul>
+        </div>  
+        </div>`
+    }
+    else if (role == "Engineer") {
+        return`<div class="card employee">
+        <div class="employee-header">
+          <h2>${name}</h2>
+          <h3>${role}</h3>
+        </div>
+        <div class="employee-info">
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a>
+            </li>
+            <li class="list-group-item">GitHub Profile: ${github}</li>
+          </ul>
+        </div>  
+        </div>`
+    }
+    else if (role == "Intern") {
+        return`<div class="card employee">
+        <div class="employee-header">
+          <h2>${name}</h2>
+          <h3>${role}</h3>
+        </div>
+        <div class="employee-info">
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a>
+            </li>
+            <li class="list-group-item">School: ${school}</li>
+          </ul>
+        </div>  
+        </div>`
+    }
+
+}
+
 function generateHTML() {
     let html = `<!DOCTYPE html>
     <html lang="en">
@@ -143,20 +195,7 @@ function generateHTML() {
     <div class="container">
       <div class="row">
         <div class="card-container col-12 d-flex justify content-center">
-            <div class="card employee">
-              <div class="employee-header">
-                <h2>${employees.name}</h2>
-                <h3>${employees.title}</h3>
-              </div>
-              <div class="employee-info">
-                <ul class="list-group">
-                  <li class="list-group-item">ID: ${employees.id}</li>
-                  <li class="list-group-item"> Email: <a href="mailto:${employees.email}">${employees.email}</a>
-                  </li>
-                  <li class="list-group-item">${employees.officeNumber || employees.github || employees.school}</li>
-                </ul>
-              </div>  
-            </div>
+        ${employeeCard}
         </div>
       </div>
     </div>
