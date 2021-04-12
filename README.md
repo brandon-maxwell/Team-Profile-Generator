@@ -5,7 +5,7 @@
 This application allows the user to enter their team members information to generate a html file that will display their teams information.
 
 ## Preview of Expected Results:
-![preview screenshot](./Images/screenshot.png)
+![preview screenshot](./images/screenshot.png)
 
 ## Tutorial
 [Click here to view a tutorial video on how to use the Team Profile Generator](https://www.youtube.com/watch?v=f48_6aB-gSk)
