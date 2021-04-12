@@ -29,15 +29,15 @@ function startHTML(employees) {
         } else if (employees[i].getRole() === "Intern") {
             html += createIntern(employees[i])
         }
-        html += endHTML();
-        return html
     }
+    html += endHTML();
+    return html
 }
 function createManager(manager) {
     return `<div class="card employee">
         <div class="employee-header">
           <h2>${manager.getName()}</h2>
-          <h3>${manager.getRole()}</h3>
+          <h5>${manager.getRole()}</h3>
         </div>
         <div class="employee-info">
           <ul class="list-group">
@@ -54,14 +54,15 @@ function createEngineer(engineer) {
     return `<div class="card employee">
         <div class="employee-header">
           <h2>${engineer.getName()}</h2>
-          <h3>${engineer.getRole()}</h3>
+          <h5>${engineer.getRole()}</h3>
         </div>
         <div class="employee-info">
           <ul class="list-group">
             <li class="list-group-item">ID: ${engineer.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a>
             </li>
-            <li class="list-group-item">Office Number: ${engineer.getGithub()}</li>
+            <li class="list-group-item">GitHub Username: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a>
+            </li>
           </ul>
         </div>  
         </div>`
@@ -71,14 +72,14 @@ function createIntern(intern) {
     return `<div class="card employee">
         <div class="employee-header">
           <h2>${intern.getName()}</h2>
-          <h3>${intern.getRole()}</h3>
+          <h5>${intern.getRole()}</h3>
         </div>
         <div class="employee-info">
           <ul class="list-group">
             <li class="list-group-item">ID: ${intern.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a>
             </li>
-            <li class="list-group-item">Office Number: ${intern.getSchool()}</li>
+            <li class="list-group-item">School: ${intern.getSchool()}</li>
           </ul>
         </div>  
         </div>`

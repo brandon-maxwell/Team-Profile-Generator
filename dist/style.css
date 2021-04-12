@@ -1,0 +1,21 @@
+.heading {
+    background-color: orangered;
+    color: whitesmoke;
+}
+
+.card {
+    margin: 10px;
+}
+
+.employee-header {
+    padding-left: 10px;
+    background-color: cornflowerblue;
+}
+
+.employee-info {
+    background-color: aliceblue;
+}
+
+.list-group {
+    margin: 30px 20px;
+}
