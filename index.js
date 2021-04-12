@@ -75,7 +75,7 @@ async function questionsFunction() {
     let finalResults = await { ...initalResults, ...positionResults };
     let employee = await makeEmployee(finalResults);
     employees.push(employee);
-    console.log(employees)
+    // console.log(employees)
     let addEmployee = await inquirer.prompt(addMore);
     more(addEmployee.confirm);
 }
